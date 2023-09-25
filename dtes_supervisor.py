@@ -83,7 +83,7 @@ def reporte_dte():
         cantidad_por_pagar = df_filtrado[df_filtrado['status'] == 'Imputada por Pagar']['contador'].sum()
         cantidad_link_si = df_filtrado[df_filtrado['link'] == 'sí']['contador'].sum()
         
-        df_agrupado = df_filtrado.sum()
+        df_agrupado = df_filtrado.sum(numeric_only=True)
         contador_sum = df_agrupado['contador']
         monto_sum = format_currency(df_agrupado['monto'])
         porc_pagados = format_percentage((cantidad_pagada  / contador_sum)*100)
