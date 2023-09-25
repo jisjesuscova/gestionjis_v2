@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import locale
  
 
-def reporte_dte():
+def reporte_dte(supervisor):
     conn = st.experimental_connection('mysql', type='sql')
 
     @st.cache_data(ttl=3600)
@@ -48,7 +48,7 @@ def reporte_dte():
     df_status_dte['link'] = df_status_dte['comment'].apply(lambda x: 'sí' if 'Código de autorización' in str(x) else 'no')
     df_status_dte['folio'] = df_status_dte['folio'].astype(str)
     ultimo_mes = df_status_dte['Periodo'].max()
-    supervisor_names = 'David Wilder Gomez Figueroa'
+    supervisor_names = supervisor
 
 
     st.sidebar.title('Filtros Disponibles')    

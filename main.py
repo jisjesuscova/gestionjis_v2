@@ -56,7 +56,10 @@ def main():
                 usuario = obtener_usuarios(rut, contrasena)
                 if usuario is not None and "access_token" in usuario:
                     st.success("Inicio de sesión exitoso!")
-                    st.write(f"Bienvenido, {usuario['rol_id']}")
+                    st.write(f"Bienvenido, {usuario['nickname']}")
+                    # Guardar datos del usuario en la sesión
+                    st.session_state.user_data = usuario
+
                     # Cambiar el estado de autenticación a exitoso
                     st.session_state.authentication_status = True
                     st.experimental_rerun()  # Recargar la aplicación
@@ -64,8 +67,11 @@ def main():
                     st.session_state.authentication_status = False
                     st.error("Credenciales inválidas. Inténtalo de nuevo o contáctanos.")
 
-    elif st.session_state.authentication_status:        
-        reporte_dte()
+    elif st.session_state.authentication_status:
+        usuario = st.session_state.user_data
+        #st.write(usuario)
+        supervisor = usuario['full_name']
+        reporte_dte(supervisor)
         
 
 
